@@ -29,19 +29,22 @@ def getRGBtext(R, G, B):
     R, G, B = str(R) + ' ' * (4 - len(str(R))), str(B) + ' ' * (4 - len(str(B))), str(G) + ' ' * (4 - len(str(G)))
     return 'R = ' + R + '  G = ' + G + '  B = ' + B
 
-cv2.namedWindow("Image")
-cv2.setMouseCallback("Image", getRGBvalue)
-            
-while True:
-    cv2.imshow("Image", img)
-    cv2.rectangle(img, (10, 10), (imgWidth + 30, 40), (b, g, r), -1)
+def colorDetection(): 
+    cv2.namedWindow("Image")
+    cv2.setMouseCallback("Image", getRGBvalue)
+                
+    while True:
+        cv2.imshow("Image", img)
+        cv2.rectangle(img, (10, 10), (imgWidth + 30, 40), (b, g, r), -1)
 
-    scalar = (255, 255, 255) if r + g + b < 600 else (0, 0, 0)
-    cv2.putText(img, getNameColor(r, g, b), (30, 32), 1, 1.2, scalar, 1, cv2.LINE_AA)    
-    cv2.putText(img, getRGBtext(r, g, b), (imgWidth - 280, 32), 1, 1.2, scalar, 1, cv2.LINE_AA)    
+        scalar = (255, 255, 255) if r + g + b < 600 else (0, 0, 0)
+        cv2.putText(img, getNameColor(r, g, b), (30, 32), 1, 1.2, scalar, 1, cv2.LINE_AA)    
+        cv2.putText(img, getRGBtext(r, g, b), (imgWidth - 280, 32), 1, 1.2, scalar, 1, cv2.LINE_AA)    
 
-    if cv2.waitKey(20) & 0xFF == 27:
-        break
+        if cv2.waitKey(20) & 0xFF == 27:
+            break
+        
+    cv2.destroyAllWindows()
     
-cv2.destroyAllWindows()
-    
+if __name__ == '__main__':
+    colorDetection()
